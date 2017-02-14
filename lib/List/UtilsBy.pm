@@ -1,7 +1,7 @@
 #  You may distribute under the terms of either the GNU General Public License
 #  or the Artistic License (the same terms as Perl itself)
 #
-#  (C) Paul Evans, 2009-2015 -- leonerd@leonerd.org.uk
+#  (C) Paul Evans, 2009-2017 -- leonerd@leonerd.org.uk
 
 package List::UtilsBy;
 
@@ -20,6 +20,8 @@ our @EXPORT_OK = qw(
 
    max_by nmax_by
    min_by nmin_by
+
+   sum_by sum0_by
 
    uniq_by
 
@@ -254,6 +256,66 @@ sub min_by(&@)
 }
 
 *nmin_by = \&min_by;
+
+=head2 sum_by
+
+=head2 sum0_by
+
+   $sum = sum_by { VALUEFUNC } @vals;
+
+   $sum = sum0_by { VALUEFUNC } @vals;
+
+Returns the sum of the results of VALUEFUNC applied to each of the values
+in C<@vals>.
+
+For example:
+
+   $total_salary = sum_by { $_->salary } @employees;
+
+This is the same as using C<sum> from L<List::Util> like
+
+   $total_salary = sum map { $_->salary } @employees;
+
+but without the intermediate results of the C<map>.
+
+If called on an empty list, C<sum_by> returns undef, and C<sum0_by>
+returns 0.
+
+=cut
+
+sub sum_by(&@)
+{
+   my $code = shift;
+
+   return undef unless @_;
+
+   local $_;
+
+   my $sum = 0;
+
+   foreach ( @_ ) {
+      $sum += $code->();
+   }
+
+   return $sum;
+}
+
+sub sum0_by(&@)
+{
+   my $code = shift;
+
+   return 0 unless @_;
+
+   local $_;
+
+   my $sum = 0;
+
+   foreach ( @_ ) {
+      $sum += $code->();
+   }
+
+   return $sum;
+}
 
 =head2 uniq_by
 

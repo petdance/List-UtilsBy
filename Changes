@@ -1,5 +1,9 @@
 Revision history for List-UtilsBy
 
+NEXT
+        [CHANGES]
+         * Added 'sum_by' and 'sum0_by'
+
 0.10    2015/07/16 19:22:00
         [CHANGES]
          * Added 'extract_first_by'

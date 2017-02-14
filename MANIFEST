@@ -20,5 +20,6 @@ t/09unzip_by.t
 t/10extract_by.t
 t/11weighted_shuffle_by.t
 t/12bundle_by.t
+t/13sum_by.t
 t/99pod.t
 t/Unrandom.pm
