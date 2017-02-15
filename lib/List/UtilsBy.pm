@@ -304,8 +304,6 @@ sub sum0_by(&@)
 {
    my $code = shift;
 
-   return 0 unless @_;
-
    local $_;
 
    my $sum = 0;
